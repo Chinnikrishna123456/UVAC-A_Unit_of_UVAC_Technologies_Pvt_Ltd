@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../",
+    "outDir": "../dist/server",
+    "module": "esnext",
+    "target": "es2018",
+    "lib": ["es2018"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "../",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@middleware/*": ["middleware/*"]
+    }
+  },
+  "include": ["../shared/**/*", "../server/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
