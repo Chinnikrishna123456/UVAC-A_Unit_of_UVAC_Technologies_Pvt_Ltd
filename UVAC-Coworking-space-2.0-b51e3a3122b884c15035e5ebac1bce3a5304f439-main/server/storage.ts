@@ -9,7 +9,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<any>;
   createUser(user: any): Promise<any>;
   createInquiry(inquiry: any): Promise<any>;
-  getAllInquiries(): mongoose.Query<any, any>;
+  getAllInquiries(): Promise<any>;
   getAllUsers(): Promise<any[]>;
   updateUserProfile(userId: string, updateData: any): Promise<void>;
   initDatabase(): Promise<void>;
