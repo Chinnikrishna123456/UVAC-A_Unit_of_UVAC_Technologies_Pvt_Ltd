@@ -6,13 +6,13 @@ if (!MONGO_URI) {
   throw new Error('Please define the MONGO_URI environment variable inside .env');
 }
 
-// 👇 Attach a type-safe global cache (for development hot-reloading)
+// 👇 Extend the NodeJS global type to include a typed cache
 declare global {
   // eslint-disable-next-line no-var
   var mongooseCache: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
-  };
+  } | undefined;
 }
 
 // Use global cache in dev to prevent multiple connections
@@ -28,7 +28,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_URI, {
+    cached.promise = mongoose.connect(MONGO_URI!, {
       bufferCommands: false,
     });
   }
@@ -58,7 +58,7 @@ mongoose.connection.on('disconnected', () => {
   console.log('[MongoDB] Disconnected');
 });
 
-// Close connection on app shutdown (Node process ends)
+// Gracefully close connection on app shutdown
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
   console.log('[MongoDB] Connection closed due to SIGINT');
