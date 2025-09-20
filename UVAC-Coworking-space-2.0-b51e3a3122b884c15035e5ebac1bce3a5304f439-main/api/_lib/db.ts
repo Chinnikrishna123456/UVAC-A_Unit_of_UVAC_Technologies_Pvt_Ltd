@@ -1,67 +1,66 @@
 import mongoose from 'mongoose';
 
-if (!process.env.MONGO_URI) {
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
   throw new Error('Please define the MONGO_URI environment variable inside .env');
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+// 👇 Attach a type-safe global cache (for development hot-reloading)
+declare global {
+  // eslint-disable-next-line no-var
+  var mongooseCache: {
+    conn: typeof mongoose | null;
+    promise: Promise<typeof mongoose> | null;
+  };
 }
 
-/**
- * Establishes a connection to MongoDB using Mongoose.
- * Reuses the existing connection if available.
- */
-export async function connectToDatabase() {
+// Use global cache in dev to prevent multiple connections
+let cached = global.mongooseCache;
+
+if (!cached) {
+  cached = global.mongooseCache = { conn: null, promise: null };
+}
+
+export async function connectToDatabase(): Promise<typeof mongoose> {
   if (cached.conn) {
     return cached.conn;
   }
 
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGO_URI, {
       bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(process.env.MONGO_URI!, opts).then((mongoose) => {
-      return mongoose;
     });
   }
 
   try {
     cached.conn = await cached.promise;
-  } catch (e) {
+  } catch (err) {
     cached.promise = null;
-    throw e;
+    throw err;
   }
 
   return cached.conn;
 }
 
-// Export the mongoose instance for direct usage if needed
 export const db = mongoose;
 
-// Optional: Handle connection events
+// Optional: Handle connection lifecycle events
 mongoose.connection.on('connected', () => {
-  console.log('MongoDB connected successfully');
+  console.log('[MongoDB] Connected successfully');
 });
 
 mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+  console.error('[MongoDB] Connection error:', err);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected');
+  console.log('[MongoDB] Disconnected');
 });
 
-// Close the Mongoose connection when the Node process ends
+// Close connection on app shutdown (Node process ends)
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
+  console.log('[MongoDB] Connection closed due to SIGINT');
   process.exit(0);
 });
