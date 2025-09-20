@@ -9,7 +9,8 @@
     // Enables top-level await
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "jsx": "preserve",
 
     // Type safety & project conventions
     "strict": true,
@@ -21,7 +22,7 @@
     "moduleResolution": "bundler",
 
     "baseUrl": ".",
-    "types": ["node"], // 👈 No "vite/client" here — only backend/server stuff
+    "types": ["node"], 
 
     // Path aliases
     "paths": {
