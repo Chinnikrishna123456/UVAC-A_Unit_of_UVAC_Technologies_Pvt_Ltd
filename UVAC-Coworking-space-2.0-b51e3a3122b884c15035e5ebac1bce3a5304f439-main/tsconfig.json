@@ -5,16 +5,25 @@
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
-    "module": "ESNext",
+
+    // ✅ Enable top-level await support
+    "target": "ES2017",              // 👈 Add this
+    "module": "ESNext",              // Already correct
+
+    // ✅ Type safety and module features
     "strict": true,
     "lib": ["esnext", "dom", "dom.iterable"],
     "jsx": "preserve",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
-    "moduleResolution": "bundler",
+
+    // ✅ Modern module resolution
+    "moduleResolution": "bundler",   // Works well with Vite
     "baseUrl": ".",
     "types": ["node", "vite/client"],
+
+    // ✅ Path aliases
     "paths": {
       "@/*": ["./client/src/*"],
       "@shared/*": ["./shared/*"]
