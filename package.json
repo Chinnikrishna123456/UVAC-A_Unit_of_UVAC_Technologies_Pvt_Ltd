@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "embla-carousel-react": "^8.6.0",
+    "embla-carousel-react": "^8.6.0"
+  },
+  "devDependencies": {
     "vite": "^7.1.6"
   }
 }
