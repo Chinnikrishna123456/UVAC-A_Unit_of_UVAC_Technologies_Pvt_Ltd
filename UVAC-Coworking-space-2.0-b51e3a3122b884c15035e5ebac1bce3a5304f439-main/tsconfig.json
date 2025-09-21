@@ -1,5 +1,10 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "server/**/*", "api/**/*"],
+  "files": [],
+  "references": [
+    { "path": "./client" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "include": ["shared/**/*", "server/**/*", "api/**/*"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
     "incremental": true,
@@ -15,13 +20,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
 
-  // Use "bundler" for best Vite compatibility, or "nodenext" if you prefer
-  "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
 
     "rootDir": ".",
-
     "baseUrl": ".",
-  "types": ["node"],
+    "types": ["node"],
 
     "paths": {
       "@/*": ["./client/src/*"],
