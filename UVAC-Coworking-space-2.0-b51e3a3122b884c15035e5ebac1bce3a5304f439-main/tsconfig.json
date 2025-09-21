@@ -17,12 +17,12 @@
     "allowImportingTsExtensions": true,
 
     // Use "bundler" for best Vite compatibility, or "nodenext" if you prefer
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
 
     "rootDir": ".",
 
     "baseUrl": ".",
-    "types": ["node"],
+    "types": ["node","vite/client"],
 
     "paths": {
       "@/*": ["./client/src/*"],
