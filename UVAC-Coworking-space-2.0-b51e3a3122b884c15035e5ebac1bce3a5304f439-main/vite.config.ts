@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react/dist/index.js";
+import react from "@vitejs/plugin-react"
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -28,9 +28,9 @@ export default defineConfig({
     port: 5173,
     host: 'localhost',
     hmr: false,
-    watch: {
-      ignored: ['**']
-    },
+    // watch: {
+    //   ignored: ['**']
+    // },
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
