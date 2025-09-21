@@ -7,7 +7,7 @@
     "noEmit": true,
 
     "target": "ESNext",
-    "module": "ESNext",  
+    "module": "ESNext",
     "lib": ["esnext", "dom", "dom.iterable"],
     "jsx": "preserve",
 
@@ -16,8 +16,10 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
 
-    "moduleResolution": "node16", // ✅ Keeping "nodenext"
-    "rootDir": ".",             // ✅ rootDir set to avoid errors on Vercel
+    // Use "bundler" for best Vite compatibility, or "nodenext" if you prefer
+    "moduleResolution": "bundler",
+
+    "rootDir": ".",
 
     "baseUrl": ".",
     "types": ["node"],
