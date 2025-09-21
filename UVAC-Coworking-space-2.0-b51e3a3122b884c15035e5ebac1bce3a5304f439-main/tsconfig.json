@@ -1,32 +1,31 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "server/**/*"],
+  "include": ["client/src/**/*", "shared/**/*", "server/**/*", "api/**/*"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
 
-    // Enables top-level await
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "jsx": "preserve",
 
-    // Type safety & project conventions
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
 
-    // Module resolution for modern bundlers
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext", // ✅ changed from "bundler"
+    "rootDir": ".",             // ✅ added this to fix Vercel error
 
     "baseUrl": ".",
-    "types": ["node"], // 👈 No "vite/client" here — only backend/server stuff
+    "types": ["node"],
 
-    // Path aliases
     "paths": {
       "@/*": ["./client/src/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@server/*": ["./server/*"]
     }
   }
 }
