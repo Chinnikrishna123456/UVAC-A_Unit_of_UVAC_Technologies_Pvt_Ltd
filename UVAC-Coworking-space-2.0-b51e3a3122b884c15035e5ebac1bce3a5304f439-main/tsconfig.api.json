@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/api",
-    "rootDir": "./api",
+    "rootDir": ".", // ✅ Include all source files across api, server, shared, etc.
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -24,8 +24,9 @@
     "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": [
-    "api/**/*.ts",
-    "api/**/*.tsx"
+    "api/**/*",
+    "server/**/*",   // ✅ Add this to avoid import issues
+    "shared/**/*"    // ✅ Add this if you import from shared/
   ],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
