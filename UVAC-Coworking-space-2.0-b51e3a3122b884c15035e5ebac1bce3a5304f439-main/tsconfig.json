@@ -3,7 +3,7 @@
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
     "incremental": true,
-    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
     "noEmit": true,
 
     "target": "ESNext",
@@ -14,15 +14,14 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
 
-    // Use "bundler" for best Vite compatibility, or "nodenext" if you prefer
-    "moduleResolution": "node",
+  // Use "bundler" for best Vite compatibility, or "nodenext" if you prefer
+  "moduleResolution": "bundler",
 
     "rootDir": ".",
 
     "baseUrl": ".",
-    "types": ["node","vite/client"],
+    "types": ["node", "vite/client"],
 
     "paths": {
       "@/*": ["./client/src/*"],
